@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My AI App</title>
+</head>
+<body>
+  <h1>Welcome to My AI App</h1>
+  <input id="input" placeholder="Type something..." />
+  <button onclick="send()">Send</button>
+  <p id="output"></p>
+
+  <script>
+    async function send() {
+      const text = document.getElementById("input").value;
+
+      const response = await fetch("AIzaSyDmaaLJS_BEVL5jIjVvUA6eiEyuljmkmds", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text }] }]
+        })
+      });
+
+      const data = await response.json();
+      document.getElementById("output").innerText =
+        data.candidates[0].content.parts[0].text;
+    }
+  </script>
+</body>
+</html>
